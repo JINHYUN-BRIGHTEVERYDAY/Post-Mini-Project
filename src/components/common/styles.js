@@ -103,18 +103,21 @@ export const sideBarContainer = css`
 `;
 
 
-export const menuListItem = (isSelected) =>css`
+export const menuListItem = (isSelected) => css`
     width: 100%;
     height: 35px;
     box-sizing: border-box;
-    align-items: center;
     display: flex;
-    padding : 5px 15px;
+    align-items: center;
+    padding: 5px 15px;
     font-weight: 500;
     transition: all 0.1s ease-in-out;
-    text-shadow: 0 0 ${isSelected ? "10px 10px" : "0 0"} #0000000f inset;
     
-    &: hover {
+    /* inset 제거 및 문법 수정 */
+    text-shadow: ${isSelected ? "0 0 10px #00000066" : "none"};
+    
+    /* 공백 제거 */
+    &:hover {
         text-shadow: 0 0 10px #00000066;
     }
 
@@ -122,7 +125,7 @@ export const menuListItem = (isSelected) =>css`
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-left: 5px;
+        margin-left: 5px; /* 아이콘 앞 여백 */
         width: 30px;
         height: 100%;
         font-size: 25px;
