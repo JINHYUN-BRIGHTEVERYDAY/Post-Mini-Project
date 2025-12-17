@@ -7,6 +7,7 @@ function OAuth2() {
     const navigate = useNavigate();
     const [ searchParams ] = useSearchParams();
     const accessToken = searchParams.get("accessToken");
+    // searchParams : get 요청때 사용된 파라미터들 가져오기
 
     if (!!accessToken) {
         localStorage.setItem("AccessToken", accessToken);
