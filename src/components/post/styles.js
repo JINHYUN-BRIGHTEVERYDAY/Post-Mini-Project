@@ -122,13 +122,13 @@ export const imageListBox = css`
     overflow-y: hidden;
 
 
-    &::-webkit-scrollbar {
+    /* &::-webkit-scrollbar {
         display: none;
     }
 
     &::-webkit-scrollbar-thumb {
         width: 3px;
-    }
+    } */
 
 
 `;
@@ -142,7 +142,7 @@ export const preview = (url) => css`
     border-radius: 4px;
     width: 70px;
     height: 70px;
-    background-color: url(${url});
+    background-image: url(${url});
     background-position: center;
     background-size: cover;
 
