@@ -48,7 +48,8 @@ function LeftSideBar({children}) {
             {children}
         </div>
         {
-            !!layoutRef.current && 
+            // 상태를 날려버리기
+            !!layoutRef.current && addPostModalOpen && 
             <AddPostModal 
                 isOpen={addPostModalOpen} 
                 onRequestClose={addPostModalClose} 
