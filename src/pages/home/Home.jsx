@@ -2,6 +2,9 @@ import { useGetFeeds } from "../../queries/postQueries";
 /** @jsxImportSource @emotion/react */
 import  * as s  from "./styles";
 import Loading from "../../components/common/Loading";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 
 function Home() {
@@ -23,7 +26,21 @@ function Home() {
                         </header>
                         <main>
                             <div css={s.feedImageContainer}>
-
+                                <Slider dots = {true}
+                                infinite = {true}
+                                speed={500}
+                                slidesToShow = {1}
+                                slidesToScroll = {1}>
+                                    <div>
+                                        <h1>1</h1>
+                                    </div>
+                                    <div>
+                                        <h2>2</h2>
+                                    </div>
+                                    <div>
+                                        <h2>3</h2>
+                                    </div>
+                                </Slider>
                             </div>
                             <div css={s.feedContentContainer}>
                                 {feed.content}
