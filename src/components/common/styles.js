@@ -18,6 +18,8 @@ export const frame = css`
     background-color:black;
     border-radius: 30px;
 `;
+
+
 export const frameContainer= css`
     width: 100%;
     height: 100%;
@@ -25,10 +27,9 @@ export const frameContainer= css`
     box-sizing: border-box;
     border-radius: 10px;
     background-color: #cac4c4ff;
-    overflow: hidden;
-
-    
+    overflow: hidden;    
 `;
+
 /////////////////////////////////////////<<  LOADING  >>////////////////////
 export const loadingBox = css`
     position: absolute;
@@ -50,8 +51,11 @@ export const sideBarLayout = css`
     width: 100%;
     height: 100%;
 
-    
+    & > div {
+        flex-grow: 1;
+    }
 `;
+
 export const sideBarContainer = css`
     width: 200px;
     height: 100%;

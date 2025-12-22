@@ -11,6 +11,7 @@ import { IoIosClose } from "react-icons/io";
 import { createPost } from "../../apis/posts/postsApi";
 import { useCreatePostMutation } from "../../mutations/postMutations";
 
+
 function AddPostModal({isOpen, onRequestClose, layoutRef}) {
     const [ visibilityOption, setVisibilityOption ] = useState({label: "Public", value: "Public"});
     const [ textareaValue, setTextareaValue ] = useState("");
