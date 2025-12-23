@@ -6,18 +6,25 @@ import { IoHomeOutline, IoAddCircleOutline} from "react-icons/io5";
 import { MdOutlineExplore } from "react-icons/md";
 import { useMeQuery } from "../../queries/usersQueries";
 import AddPostModal from "../post/AddPostModal";
-import { useRef, useState } from "react";
+import { use, useEffect, useRef, useState } from "react";
 
 
 function LeftSideBar({children}) {
     const location = useLocation();
     const {pathname} = location;
     const [ addPostModalOpen, setAddPostModalOpen ] = useState(false);
+    const [ homeRefresh, setHomeRefresh ] = useState(false);
     const layoutRef = useRef();
 
     // console.log(decodeURI(pathname))
 
     const {isLoading, data} = useMeQuery();
+
+    useEffect(() => {
+        if (homeRefresh) {
+            setHomeRefresh(false);
+        }
+    }, [homeRefresh]);
 
     const handleAddPostModalOpenOnClick = () => {
         setAddPostModalOpen(true);
@@ -44,17 +51,17 @@ function LeftSideBar({children}) {
                 <Link to={"/logout"}>Logout</Link>
             </div>
         </aside>
-        <div>
-            {children}
-        </div>
+        {!homeRefresh && children}
         {
             // 상태를 날려버리기
             !!layoutRef.current && addPostModalOpen && 
             <AddPostModal 
                 isOpen={addPostModalOpen} 
                 onRequestClose={addPostModalClose} 
-                layoutRef={layoutRef} />
+                layoutRef={layoutRef} 
+                setHomeRefresh={setHomeRefresh} />
         }
+        
     </div>
 }
 

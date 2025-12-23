@@ -12,13 +12,21 @@ import { createPost } from "../../apis/posts/postsApi";
 import { useCreatePostMutation } from "../../mutations/postMutations";
 
 
-function AddPostModal({isOpen, onRequestClose, layoutRef}) {
+function AddPostModal({isOpen, onRequestClose, layoutRef, setHomeRefresh}) {
     const [ visibilityOption, setVisibilityOption ] = useState({label: "Public", value: "Public"});
     const [ textareaValue, setTextareaValue ] = useState("");
     const [ uploadImages, setUploadImages ] = useState([]);
+    const [ disabled, setDisabled ] = useState(true);
     const imageListBoxRef = useRef();
     const {isLoading, data} = useMeQuery();
     const createPostMutation = useCreatePostMutation();
+
+
+    useEffect(() => {
+        setDisabled(!textareaValue || !uploadImages.length);
+    }, [textareaValue, uploadImages]); 
+    // 아무것도 입력 안하면 post 버튼이 막히고 입력하면 열린다
+
 
     const handleOnWheel = (e) => {
         imageListBoxRef.current.scrollLeft += e.deltaY;
@@ -77,6 +85,7 @@ function AddPostModal({isOpen, onRequestClose, layoutRef}) {
         setUploadImages(deletedImages);
     }
 
+
     const handlePostSubmitOnClick = async () => {
         const formData = new FormData();
         formData.append("visibility", visibilityOption.value);
@@ -87,6 +96,7 @@ function AddPostModal({isOpen, onRequestClose, layoutRef}) {
         try{
            await createPostMutation.mutateAsync(formData);
            alert("작성 완료");
+           setHomeRefresh(true);
            onRequestClose();
         } catch(error) {
            alert(error.response.data.message);
@@ -177,7 +187,7 @@ function AddPostModal({isOpen, onRequestClose, layoutRef}) {
 
                 </main>
                 <footer>
-                    <button css={s.postButton} onClick={handlePostSubmitOnClick}>Post</button>
+                    <button css={s.postButton} onClick={handlePostSubmitOnClick} disabled={disabled}>Post</button>
                     <button onClick={onRequestClose}>Cancel</button>
                 </footer>
             </div>

@@ -8,13 +8,12 @@ export const layout = css`
     height: 100%;
 `;
 
-export const feedContainer = css`
+export const feedContainer = (commentOpen) => css`
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 20px;
-    width: 65%;
-    overflow-y: auto;
+    width: 60%;
+    overflow-y: ${commentOpen ? "hidden" : "auto"};
 
     &::-webkit-scrollbar {
         display: none;
@@ -29,7 +28,8 @@ export const followInfoContainer = css`
 `;  
 
 export const feedItemContainer = css`
-    margin: 10px;
+    margin-top: 20px;
+    box-sizing: border-box;
     border-radius: 8px;
     padding: 10px;
     width: 400px;
@@ -42,8 +42,32 @@ export const feedItemContainer = css`
     }
 
     & > main {
-
+        padding: 10px 0;
     }
+
+    & > footer {
+        display: flex;
+        gap: 5px;
+        box-sizing: border-box;
+        border-top: 1px solid #dbdbdb;
+        padding: 5px 5px 0;
+
+        & > div {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+
+        & > div:nth-of-type(1) {
+            font-size: 18px;
+        }
+
+        & > div:nth-of-type(2) {
+            font-size: 21px;
+        }
+    }
+
 `;
 
 export const profileImage = (url) => css`
@@ -79,11 +103,27 @@ export const userInfo = css`
 export const feedImageContainer = css`
     & .slick-prev {
         left: 25px;
+        z-index: 2;
+        &::before {
+            color: black;
+        }
     }
 
     & .slick-next {
         right: 25px;
+        z-index: 2;
+        &::before {
+            color: black;
+        }
     }
+`;
+
+export const feedImage = (url) => css`
+    width: 100%;
+    height: 300px;
+    background-image: url("${url}");
+    background-position: center;
+    background-size: cover;
 `;
 
 
@@ -96,4 +136,20 @@ export const feedContentContainer = css`
     word-wrap: break-word;
     font-size: 14px;
     color: #222222;
+`;
+
+
+export const commentContainer = (commentOpen) => css`
+    position: absolute;
+    right: 20px;
+    margin-top: 20px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    width: 260px;
+    height: 540px;
+    box-shadow: 0 0 10px #00000066;
+    background-color: #ffffff;
+    overflow: hidden;
+    transition: all 0.2s ease-in-out;
+    opacity: ${commentOpen ? 1 : 0}; // 존재하지만 보이지 않는
 `;

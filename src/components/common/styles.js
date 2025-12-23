@@ -51,16 +51,14 @@ export const sideBarLayout = css`
     width: 100%;
     height: 100%;
 
-    & > div {
-        flex-grow: 1;
-    }
 `;
 
 export const sideBarContainer = css`
     width: 200px;
     height: 100%;
-    background-color: white;
+    background-color: #ffffff;
     flex-direction: column;
+    min-width: 200px;
     display: flex;
 
     & > h1{
