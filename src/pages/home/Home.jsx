@@ -1,7 +1,7 @@
-import { useGetFeeds } from "../../queries/postQueries";
 /** @jsxImportSource @emotion/react */
-import  * as s  from "./styles";
 import Loading from "../../components/common/Loading";
+import { useGetFeeds } from "../../queries/postQueries";
+import  * as s  from "./styles";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -9,13 +9,12 @@ import { useEffect, useRef, useState } from "react";
 import { FadeLoader } from "react-spinners";
 import { IoMdHeart, IoMdHeartEmpty } from "react-icons/io";
 import { IoChatbubbleOutline } from "react-icons/io5";
-
+import Comment from "../../components/comment/Comment";
 
 function Home() {
-    const [ commentOpen, setCommentOpen ] = useState(false);
-    const { isLoading, isFetching, isPending, data, hasNextPage, fetchNextPage } = useGetFeeds();
+    const [ commentOpen, setCommentOpen ] = useState(0);
+    const { isLoading, isFetching, data, hasNextPage, fetchNextPage } = useGetFeeds();
     const loadMoreRef = useRef();
-
 
     useEffect(() => {
         const observer = new IntersectionObserver((entries) => {
@@ -28,15 +27,17 @@ function Home() {
         observer.observe(loadMoreRef.current);
     }, [hasNextPage]);
 
-    // 버튼 클릭을 할 때에 댓글창이 열리도록 할 것인가
-    const handleCommentOnClick = () => {
-        setCommentOpen(!commentOpen);
+    const handleCommentOnClick = (postId) => {
+        const currentPostId = commentOpen;
+        setCommentOpen(currentPostId === postId ? 0 : postId);
     }
 
     return <div css={s.layout}>
         <div css={s.feedContainer(commentOpen)}>
             {
-                (isLoading && <Loading />) || data.pages.map(feeds => feeds.data.contents.map(feed => (
+                (isLoading && <Loading />) 
+                || data.pages.map(feeds => 
+                    feeds.data.contents.map(feed => (
                     <div key={feed.feedId} css={s.feedItemContainer}>
                         <header>
                             <div css={s.profileImage(feed.user?.imgUrl)}></div>
@@ -47,13 +48,13 @@ function Home() {
                         </header>
                         <main>
                             {
-                                feed.imageFiles &&  
+                                feed.imageFiles &&
                                 <div css={s.feedImageContainer}>
                                     <Slider
-                                        infinite = {true}
-                                        speed={500}
-                                        slidesToShow = {1}
-                                        slidesToScroll = {1}>
+                                        infinite= {true}
+                                        speed= {500}
+                                        slidesToShow= {1}
+                                        slidesToScroll= {1}>
                                             {
                                                 feed.imageFiles.map(file => (
                                                     <div css={s.feedImage("http://localhost:8080/image" + file.filePath)}>
@@ -68,26 +69,26 @@ function Home() {
                             </div>
                         </main>
                         <footer>
-                            <div>{false ? <IoMdHeart /> : <IoMdHeartEmpty />}</div>
-                            <div onClick={handleCommentOnClick}><IoChatbubbleOutline /></div>
+                            <div>{ false ? <IoMdHeart /> : <IoMdHeartEmpty /> }</div>
+                            <div onClick={() => handleCommentOnClick(feed.postId)}><IoChatbubbleOutline /></div>
                         </footer>
                     </div>
-                ))) 
+                )))
             }
             <div ref={loadMoreRef} style={{padding: "10px 0"}}>
                 {
-                    isFetching && !isLoading &&
-                    <FadeLoader />
+                    isFetching && !isLoading && <FadeLoader />
                 }
             </div>
         </div>
-
         <div css={s.commentContainer(commentOpen)}>
-
+            {
+                !!commentOpen && 
+                <Comment postId={commentOpen} />
+            }
         </div>
-        
-        {/* <div css={s.followInfoContainer}>
-        
+        {/* <div css={s.followInfoContainer} >
+
         </div> */}
     </div>
 }

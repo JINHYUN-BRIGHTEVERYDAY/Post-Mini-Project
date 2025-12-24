@@ -61,7 +61,6 @@ function LeftSideBar({children}) {
                 layoutRef={layoutRef} 
                 setHomeRefresh={setHomeRefresh} />
         }
-        
     </div>
 }
 
