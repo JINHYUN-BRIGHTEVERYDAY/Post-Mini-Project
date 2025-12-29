@@ -9,19 +9,72 @@ export const layout = css`
 `;
 
 export const commentItemList = css`
+    box-sizing: border-box;
     border: 1px solid #dbdbdb;
     border-width: 2px 0;
     margin-bottom: 20px;
-    height: 400px;
+    padding-left: 5px;
+    height: 350px;
     overflow-y: scroll;
 `;
 
-export const commentItem = css`
+export const commentItem = (level, isRecomment) => css`
+    box-sizing: border-box;
+    margin: 10px 0;
+    border: ${isRecomment ? 1 : 0}px solid #dbdbdb;
+    width: 100%;
+    padding-left: calc(20px * ${level});
 
-`
+    & > div:nth-of-type(1) {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 14px;
+        cursor: default;
+    }
+
+    & > div:nth-of-type(2) {
+        padding-left: 5px;
+        font-size: 14px;
+        word-wrap: break-word;
+
+        & > span {
+            color: #1781ba;
+        }
+    }
+
+
+    & > div:nth-of-type(3) {
+        padding-left: 5px;
+        font-size: 10px;
+        color: #777777;
+        cursor: default;
+
+
+        & > span {
+            padding-left: 5px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+    } 
+`;
+
+
+
+export const commentProfileImage = (url) => css`
+    box-sizing: border-box;
+    border: 1px solid #dbdbdb;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    background-image: url("${url}");
+    background-position: center;
+    background-size: cover;
+`;
+
+
 
 export const commentInput = css`
-    
     display: flex;
     align-items: center;
     box-sizing: border-box;

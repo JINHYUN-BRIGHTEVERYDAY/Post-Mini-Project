@@ -137,3 +137,72 @@ export const profileImg = (url) => css`
     background-position: center;
     background-size: cover;
 `;
+
+export const aiChat = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    box-sizing: border-box;
+    width: 40px;
+    height: 40px;
+    border: 1px solid #aadfff;
+    border-radius: 50%;
+    color: #ffffff;
+    background-color: #008ee7;
+    cursor: pointer;
+    &:hover {
+        background-color: #0078cf;
+    }
+    &:active {
+        background-color: #0071b7;
+    }
+
+`;
+
+
+export const aiChatLayout = (isOpen) => css`
+    transition: all 0.5s ease-in-out;
+    transform: ${isOpen ? "translate(0, 0)" : "transate(100%, 100%)"};
+    position: absolute;
+    top: 0;
+    right: 0;
+    box-sizing: border-box;
+    padding: 20px;
+    border-radius: 20px 0 0 20px;
+    z-index: ${isOpen ? 10 : -10};
+    width: 730px;
+    height: 100%;
+    background-color: #ffffff;
+    opacity: ${isOpen ? 1 : 0};
+`;
+
+export const aiChatContainer = () => css`
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    padding-bottom: 30px;
+`;
+
+
+export const aiChatClose = css`
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    border: none;
+    box-sizing: border-box;
+    border-radius: 6px;
+    padding: 5px 15px;
+    background-color: #ff4141ff;
+    color: #ffffff;
+    font-weight: 500;
+    cursor: pointer;
+    &:hover {
+        background-color: #f13e3eff;
+    }
+    &:active {
+        background-color: #df3939ff;
+    }
+`;
