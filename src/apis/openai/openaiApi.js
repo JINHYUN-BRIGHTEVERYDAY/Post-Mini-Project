@@ -1,6 +1,6 @@
 import OpenAI from "openai";
 
-export const sendTextopenai = (message) => {
+export const sendTextOpenai = (message) => {
 
     const openaiApiKey = import.meta.env.VITE_OPENAI_API_KEY;
     
